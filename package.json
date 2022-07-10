@@ -1,0 +1,27 @@
+{
+  "name": "js-sdk-vdom",
+  "version": "1.0.0",
+  "description": "Micro virtual dom implementation.",
+  "main": "index.js",
+  "scripts": {
+    "test": "npx jest test.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/js-sdk/vdom.git"
+  },
+  "keywords": [
+    "vdom",
+    "js-sdk"
+  ],
+  "author": "Bruno Dias",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/js-sdk/vdom/issues"
+  },
+  "homepage": "https://github.com/js-sdk/vdom#readme",
+  "devDependencies": {
+    "jest": "^28.1.2",
+    "jest-environment-jsdom": "^28.1.2"
+  }
+}

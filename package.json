@@ -21,7 +21,10 @@
   },
   "homepage": "https://github.com/js-sdk/vdom#readme",
   "devDependencies": {
+    "@swc/cli": "^0.1.57",
+    "@swc/core": "^1.2.212",
     "jest": "^28.1.2",
-    "jest-environment-jsdom": "^28.1.2"
+    "jest-environment-jsdom": "^28.1.2",
+    "webpack-cli": "^4.10.0"
   }
 }

@@ -2,7 +2,6 @@
 
 const { patch, T, N } = require('./index.js');
 
-const template = `<!DOCTYPE html><html><body /></html>`;
 
 describe('creating nodes', () => {
   it('text node', () => {

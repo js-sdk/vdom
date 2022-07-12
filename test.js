@@ -2,8 +2,11 @@
 
 const { patch, T, N } = require('./index.js');
 
+const clean = () => (document.body.innerHTML = "");
 
 describe('creating nodes', () => {
+  afterEach(clean);
+
   it('text node', () => {
     let r1 = patch(null, T('text'), document.body);
     expect(r1.s).toBe('text');
@@ -18,6 +21,8 @@ describe('creating nodes', () => {
 });
 
 describe('deleting nodes', () => {
+  afterEach(clean);
+
   it('text node', () => {
     let r1 = patch(null, T('text'), document.body);
     r1 = patch(r1, null, document.body);
@@ -40,6 +45,8 @@ describe('deleting nodes', () => {
 });
 
 describe('updating nodes', () => {
+  afterEach(clean);
+
   it('text node', () => {
     let r1 = patch(null, T('a'), document.body);
     r1 = patch(r1, T('b'), document.body);
@@ -76,6 +83,8 @@ describe('updating nodes', () => {
 });
 
 describe('managing listeners', () => {
+  afterEach(clean);
+
   it('setting up a listener', () => {
     const f = jest.fn();
     const n = N('button', { 'class': 'btn' }, { 'click': f }, [T('text')]);

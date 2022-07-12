@@ -81,7 +81,7 @@ tp.create = function(p) {
 }
 
 tp.update = function(b, p) {
-  !b ? p.removeChild(this.n) : (this.n.innerText = (this.s = b.s));
+  !b ? p.removeChild(this.n) : (this.n.textContent = (this.s = b.s));
 }
 
 module.exports = {

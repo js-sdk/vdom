@@ -46,7 +46,7 @@ describe('updating nodes', () => {
     r1 = patch(r1, T('b'), document.body);
 
     expect(r1.s).toBe('b');
-    expect(r1.n.innerText).toBe('b');
+    expect(r1.n.textContent).toBe('b');
   });
 
   describe('rendering inner nodes', () => {
@@ -57,7 +57,7 @@ describe('updating nodes', () => {
       expect(r1.c.length).toBe(1);
       expect(text.textContent).toBe('a');
       r1 = patch(r1, n(T('b')), document.body);
-      expect(text.innerText).toBe('b');
+      expect(text.textContent).toBe('b');
     });
 
     it('changing inner node from div to p', () => {

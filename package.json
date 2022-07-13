@@ -1,6 +1,6 @@
 {
   "name": "js-sdk-vdom",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "Micro virtual dom implementation.",
   "main": "index.js",
   "scripts": {
@@ -24,7 +24,6 @@
     "@swc/cli": "^0.1.57",
     "@swc/core": "^1.2.212",
     "jest": "^28.1.2",
-    "jest-environment-jsdom": "^28.1.2",
-    "webpack-cli": "^4.10.0"
+    "jest-environment-jsdom": "^28.1.2"
   }
 }

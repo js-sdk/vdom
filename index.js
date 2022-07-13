@@ -19,21 +19,20 @@ function patchList(a, b, p) {
   return cs;
 }
 
-function applyAttr(n, m, b) {
-  for (let attr in b) {
-    m[attr] = b[attr] ?
-      (n.setAttribute(attr, b[attr]), b[attr]) :
-      n.removeAttribute(attr);
+function applyAttr(a, re) {
+  return function (n, m, b) {
+    for (let attr in b) {
+      let o = m[attr], r = b[attr], e = (!!o * 2) + !!r;
+      m[attr] = (
+	e > 1 && n[re](attr, o),
+	(e == 1 || r) && (n[a](attr, r), r)
+      );
+    }
   }
 }
 
-function manageListeners(n, m, b) {
-  for (let attr in b) {
-    m[attr] = b[attr] ?
-      (n.addEventListener(attr, b[attr]), b[attr]) :
-      (n.removeEventListener(attr, m[attr]), null);
-  }
-}
+manageAttr = applyAttr('setAttribute', 'removeAttribute');
+manageListeners = applyAttr('addEventListener', 'removeEventListener');
 
 function VNode(k, o, l, c) {
   this.k = k, this.o = o, this.c = c, this.l = l, this.n = null;
@@ -46,7 +45,7 @@ const np = VNode.prototype;
 np.create = function(p) {
   const { k, o, c, l } = this;
   const el = d.createElement(k);
-  applyAttr(el, o, o);
+  manageAttr(el, o, o);
   manageListeners(el, l, l);
   for (let ch of c) { ch.create(el); }
   p.appendChild(el);
@@ -57,7 +56,7 @@ np.update = function(b, p) {
   if (!b) p.removeChild(this.n);
   else {
     const { o, c, l, n } = this;
-    applyAttr(n, o, b.o);
+    manageAttr(n, o, b.o);
     manageListeners(n, l, b.l);
     this.c = patchList(c, b.c, n);
   }

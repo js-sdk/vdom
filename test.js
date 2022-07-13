@@ -89,6 +89,33 @@ describe('updating nodes', () => {
   });
 });
 
+describe('managing attributes', () => {
+  afterEach(clean);
+
+  it('setting up an attribute', () => {
+    const n = N('button', { 'class': 'btn' }, {}, [T('text')]);
+    let r1 = patch(null, n, document.body);
+    expect(document.querySelector('.btn')).not.toBeNull();
+  });
+
+  it('removing an attribute', () => {
+    const n1 = N('button', { 'class': 'btn' }, {}, [T('text')]);
+    const n2 = N('button', { 'class': null }, {}, [T('text')]);
+    let r1 = patch(null, n1, document.body);
+    r1 = patch(r1, n2, document.body);
+    expect(document.querySelector('.btn')).toBeNull();
+  });
+
+  it('replacing attribute', () => {
+    const n1 = N('button', { 'class': 'btn' }, {}, [T('text')]);
+    const n2 = N('button', { 'class': 'btn2' }, {}, [T('text')]);
+    let r1 = patch(null, n1, document.body);
+    r1 = patch(r1, n2, document.body);
+    expect(document.querySelector('.btn')).toBeNull();
+    expect(document.querySelector('.btn2')).not.toBeNull();
+  });
+});
+
 describe('managing listeners', () => {
   afterEach(clean);
 
@@ -108,5 +135,17 @@ describe('managing listeners', () => {
     r1 = patch(r1, n2, document.body);
     document.querySelector('.btn').click();
     expect(f).not.toHaveBeenCalled();
+  });
+
+  it('replacing listener', () => {
+    const f = jest.fn();
+    const g = jest.fn();
+    const n1 = N('button', { 'class': 'btn' }, { 'click': f }, [T('text')]);
+    const n2 = N('button', { 'class': 'btn' }, { 'click': g }, [T('text')]);
+    let r1 = patch(null, n1, document.body);
+    r1 = patch(r1, n2, document.body);
+    document.querySelector('.btn').click();
+    expect(f).not.toHaveBeenCalled();
+    expect(g).toHaveBeenCalled();
   });
 });

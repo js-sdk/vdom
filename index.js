@@ -4,7 +4,8 @@ function patch(a, b, p) {
   let re, e = (!!a * 2) + !!b;
   return e > 0 ? (
     re = e > 2 && a.k === b.k,
-    e > 1 && a.update(re ? b : null, p),
+    (e > 1 && !re) && p.removeChild(a.n),
+    e > 2 && a.update(b, p),
     (e == 1 || (b && !re)) ? (b.create(p), b) : (b && a)
   ) : null;
 }
@@ -53,13 +54,10 @@ np.create = function(p) {
 }
 
 np.update = function(b, p) {
-  if (!b) p.removeChild(this.n);
-  else {
-    const { o, c, l, n } = this;
-    manageAttr(n, o, b.o);
-    manageListeners(n, l, b.l);
-    this.c = patchList(c, b.c, n);
-  }
+  const { o, c, l, n } = this;
+  manageAttr(n, o, b.o);
+  manageListeners(n, l, b.l);
+  this.c = patchList(c, b.c, n);
 }
 
 function VNodeText(s) {
@@ -78,9 +76,7 @@ tp.create = function(p) {
 }
 
 tp.update = function(b, p) {
-  !b ?
-    p.removeChild(this.n) :
-    this.s != b.s && (this.n.textContent = (this.s = b.s));
+  this.s != b.s && (this.n.textContent = (this.s = b.s));
 }
 
 module.exports = {

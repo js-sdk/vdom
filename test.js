@@ -26,13 +26,13 @@ describe('deleting nodes', () => {
   it('text node', () => {
     let r1 = patch(null, T('text'), document.body);
     r1 = patch(r1, null, document.body);
-    expect(r1).toBeUndefined();
+    expect(r1).toBeNull();
   });
 
   it('node', () => {
     let r1 = patch(null, N('div', {}, {}, []), document.body);
     r1 = patch(r1, null, document.body);
-    expect(r1).toBeUndefined();
+    expect(r1).toBeNull();
   });
 
   it('children node', () => {
@@ -77,7 +77,7 @@ describe('updating nodes', () => {
       expect(a.nodeName).toBe('DIV');
       patch(r1, n('p'), document.body);
       a = r1.c[0].n;
-      expect(a.nodeName).toBe('P');
+      expect(document.body.firstChild.firstChild.nodeName).toBe(a.nodeName);
     });
   });
 });

@@ -1,13 +1,12 @@
 const d = document;
 
 function patch(a, b, p) {
-  let re; return a && b ?
-      (
-	re = a.k === b.k,
-	a.update(re ? b : null, p),
-	re ? a : (b.create(p), b)
-      ) :
-      a ? a.update(b, p) : (b.create(p), b);
+  let re, e = (!!a * 2) + !!b;
+  return e > 0 ? (
+    re = e > 2 && a.k === b.k,
+    e > 1 && a.update(re ? b : null, p),
+    (e == 1 || (b && !re)) ? (b.create(p), b) : (b && a)
+  ) : null;
 }
 
 function patchList(a, b, p) {

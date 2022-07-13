@@ -4,6 +4,13 @@ const { patch, T, N } = require('./index.js');
 
 const clean = () => (document.body.innerHTML = "");
 
+describe('empty case', () => {
+  it('do nothing', () => {
+    let r1 = patch(null, null, document.body);
+    expect(r1).toBeNull();
+  });
+});
+
 describe('creating nodes', () => {
   afterEach(clean);
 

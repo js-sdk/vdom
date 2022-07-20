@@ -32,8 +32,8 @@ function applyAttr(a, re) {
   }
 }
 
-manageAttr = applyAttr('setAttribute', 'removeAttribute');
-manageListeners = applyAttr('addEventListener', 'removeEventListener');
+const manageAttr = applyAttr('setAttribute', 'removeAttribute');
+const manageListeners = applyAttr('addEventListener', 'removeEventListener');
 
 function VNode(k, o, l, c) {
   this.k = k, this.o = o, this.c = c, this.l = l, this.n = null;

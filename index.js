@@ -57,7 +57,7 @@ np.update = function(b, p) {
   const { o, c, l, n } = this;
   manageAttr(n, o, b.o);
   manageListeners(n, l, b.l);
-  this.c = patchList(c, b.c, n);
+  this.c = patchList(c, b.c || [], n);
 }
 
 function VNodeText(s) {

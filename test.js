@@ -86,6 +86,36 @@ describe('updating nodes', () => {
       a = r1.c[0].n;
       expect(document.body.firstChild.firstChild.nodeName).toBe(a.nodeName);
     });
+
+    it('changing inner node from text to node', () => {
+      const a = N('div', {}, {}, [
+	T('abc')
+      ]);
+
+      const b = N('div', {}, {}, [
+	N('div', {}, {}, [])
+      ]);
+
+      let r1 = patch(null, a, document.body);
+      r1 = patch(r1, b, document.body);
+
+      expect(document.body.firstChild.firstChild.nodeName).toBe('DIV');
+    });
+
+    it('changing inner node from node to text', () => {
+      const a = N('div', {}, {}, [
+	N('div', {}, {}, [])
+      ]);
+
+      const b = N('div', {}, {}, [
+	T('abc')
+      ]);
+
+      let r1 = patch(null, a, document.body);
+      r1 = patch(r1, b, document.body);
+
+      expect(document.body.firstChild.firstChild.nodeName).toBe('#text');
+    });
   });
 });
 

@@ -25,15 +25,27 @@ function applyAttr(a, re) {
     for (let attr in { ...m, ...b }) {
       let o = m[attr], r = b[attr], e = (!!o * 2) + !!r;
       m[attr] = (
-	e > 1 && n[re](attr, o),
-	(e == 1 || r) && (n[a](attr, r), r)
+	e > 1 && re(n, attr, null),
+	(e == 1 || r) ? a(n, attr, r) : null
       );
     }
   }
 }
 
-const manageAttr = applyAttr('setAttribute', 'removeAttribute');
-const manageListeners = applyAttr('addEventListener', 'removeEventListener');
+
+const manageAttr = applyAttr(
+  (n, attr, v) => (attr === 'style' ?
+		   (n.style.cssText = v) :
+		   n.setAttribute(attr, v), v),
+  (n, attr, v) => (attr === 'style' ?
+		   (n.style.cssText = "") :
+		   n.removeAttribute(attr))
+);
+
+const manageListeners = applyAttr(
+  (n, t, f) => n.addEventListener(t, f),
+  (n, t, f) => n.removeEventListener(t, f)
+);
 
 function VNode(k, o, l, c) {
   this.k = k, this.o = o, this.c = c, this.l = l, this.n = null;

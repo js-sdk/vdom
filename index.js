@@ -22,7 +22,7 @@ function patchList(a, b, p) {
 
 function applyAttr(a, re) {
   return function (n, m, b) {
-    for (let attr in b) {
+    for (let attr in { ...m, ...b }) {
       let o = m[attr], r = b[attr], e = (!!o * 2) + !!r;
       m[attr] = (
 	e > 1 && n[re](attr, o),

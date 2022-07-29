@@ -5,7 +5,7 @@ function patch(a, b, p) {
   return e > 0 ? (
     re = e > 2 && a.k === b.k,
     (e > 1 && !re) && p.removeChild(a.n),
-    e > 2 && a.update(b, p),
+    e > 2 && re && a.update(b, p),
     (e == 1 || (b && !re)) ? (b.create(p), b) : (b && a)
   ) : null;
 }

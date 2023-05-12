@@ -25,7 +25,7 @@ function applyAttr(a, re) {
     for (let attr in { ...m, ...b }) {
       let o = m[attr], r = b[attr], e = (!!o * 2) + !!r;
       m[attr] = (
-	e > 1 && re(n, attr, null),
+	e > 1 && re(n, attr, o),
 	(e == 1 || r) ? a(n, attr, r) : null
       );
     }
@@ -59,7 +59,7 @@ np.create = function(p) {
   const { k, o, c, l } = this;
   const el = d.createElement(k);
   manageAttr(el, o, o);
-  manageListeners(el, l, l);
+  manageListeners(el, {}, l);
   for (let ch of c) { ch.create(el); }
   p.appendChild(el);
   this.n = el;

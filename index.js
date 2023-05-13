@@ -24,10 +24,9 @@ function applyAttr(a, re) {
   return function (n, m, b) {
     for (let attr in { ...m, ...b }) {
       let o = m[attr], r = b[attr], e = (!!o * 2) + !!r;
-      m[attr] = (
-	e > 1 && re(n, attr, o),
-	(e == 1 || r) ? a(n, attr, r) : null
-      );
+      e > 1 && re(n, attr, o);
+      (e == 1 || r) && a(n, attr, r);
+      m[attr] = r;
     }
   }
 }
